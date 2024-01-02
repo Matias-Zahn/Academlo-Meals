@@ -20,8 +20,8 @@ export const singUp = catchAsync(async (req, res, next) => {
    const token = await generateJWT(user.id);
 
    return res.status(201).json({
-      token,
-      user,
+      token: token,
+      user: user,
    });
 });
 

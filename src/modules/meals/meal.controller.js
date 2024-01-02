@@ -1,6 +1,6 @@
 import { AppError } from '../../common/errors/appError.js';
 import { catchAsync } from '../../common/errors/catchAsync.js';
-import { validateMeal } from './meal.schema.js';
+import { validateMeal, validatePartialMeal } from './meal.schema.js';
 import { MealService } from './meal.service.js';
 
 export const findAllMeals = catchAsync(async (req, res, next) => {
@@ -32,5 +32,23 @@ export const createMeal = catchAsync(async (req, res, next) => {
 
    return res.status(201).json(meal);
 });
-export const updateMeal = catchAsync(async (req, res, next) => {});
-export const deleteMeal = catchAsync(async (req, res, next) => {});
+export const updateMeal = catchAsync(async (req, res, next) => {
+   const { meal } = req;
+
+   const { hasError, errorMessages, mealData } = validatePartialMeal(req.body);
+
+   if (hasError)
+      return res.status(422).json({ status: 'error', message: errorMessages });
+
+   const mealUpdated = await MealService.updateMeal(meal, mealData);
+
+   return res.status(201).json(mealUpdated);
+});
+
+export const deleteMeal = catchAsync(async (req, res, next) => {
+   const { meal } = req;
+
+   await MealService.deleteMeal(meal);
+
+   return res.status(204).json(null);
+});

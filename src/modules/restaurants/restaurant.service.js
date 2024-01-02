@@ -33,6 +33,14 @@ export class RestaurantService {
       return await Restaurant.create(data);
    }
 
+   static async updateRestaurant(restaurant, data) {
+      return await restaurant.update(data);
+   }
+
+   static async deleteRestaurant(restaurant) {
+      return await restaurant.update({ status: false });
+   }
+
    static async createReview(data) {
       return await Review.create(data);
    }

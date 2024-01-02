@@ -1,5 +1,8 @@
 import { catchAsync } from '../../common/errors/catchAsync.js';
-import { validateRestaurant } from './restaurant.schema.js';
+import {
+   validatePartialRestaurant,
+   validateRestaurant,
+} from './restaurant.schema.js';
 import { RestaurantService } from './restaurant.service.js';
 import { validateParitalReview, validateReview } from './review.schema.js';
 
@@ -29,6 +32,31 @@ export const createRestaurant = catchAsync(async (req, res, next) => {
       restaurant,
    });
 });
+
+export const updateRestaurant = catchAsync(async (req, res, next) => {
+   const { errorMessages, hasError, restaurantData } =
+      validatePartialRestaurant(req.body);
+
+   const { restaurant } = req;
+
+   if (hasError)
+      return res.status(422).json({ status: 'error', message: errorMessages });
+
+   const restaurantUpdated = await RestaurantService.updateRestaurant(
+      restaurant,
+      restaurantData
+   );
+
+   return res.status(200).json(restaurantUpdated);
+});
+
+export const deleteRestaurant = async (req, res, next) => {
+   const { restaurant } = req;
+
+   await RestaurantService.deleteRestaurant(restaurant);
+
+   return res.status(204).json(null);
+};
 export const createReview = catchAsync(async (req, res, next) => {
    const { id } = req.params;
    const { sessionUser } = req;

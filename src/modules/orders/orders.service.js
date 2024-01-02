@@ -1,5 +1,7 @@
 import Meal from '../meals/meals.models.js';
 import Restaurant from '../restaurants/restaurants.model.js';
+import Review from '../restaurants/review.model.js';
+import User from '../users/user.model.js';
 import Order from './orders.model.js';
 
 export class OrderServices {
@@ -10,7 +12,7 @@ export class OrderServices {
    static async findaAllOrder(userid) {
       return await Order.findAll({
          where: {
-            id: userid,
+            userId: userid,
          },
          include: [
             {
@@ -30,6 +32,11 @@ export class OrderServices {
          where: {
             id: id,
          },
+         include: [
+            {
+               model: User,
+            },
+         ],
       });
    }
 

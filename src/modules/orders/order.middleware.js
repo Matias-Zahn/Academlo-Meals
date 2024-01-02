@@ -27,6 +27,6 @@ export const validateExistOrder = catchAsync(async (req, res, next) => {
       );
 
    req.order = order;
-
+   req.user = order.user;
    next();
 });

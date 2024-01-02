@@ -32,4 +32,12 @@ export class MealService {
    static async createMeal(data) {
       return await Meal.create(data);
    }
+
+   static async updateMeal(meal, data) {
+      return await meal.update(data);
+   }
+
+   static async deleteMeal(meal) {
+      return await meal.update({ status: false });
+   }
 }

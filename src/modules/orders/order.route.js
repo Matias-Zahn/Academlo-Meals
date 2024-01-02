@@ -14,5 +14,5 @@ router.use(protect);
 
 router.post('/', validateExistMeal, createOrder);
 router.get('/me', findAllOrders);
-router.patch('/:id', protectAccountOwner, validateExistOrder, updateOrder);
-router.delete('/:id', protectAccountOwner, validateExistOrder, deleteOrder);
+router.patch('/:id', validateExistOrder, protectAccountOwner, updateOrder);
+router.delete('/:id', validateExistOrder, protectAccountOwner, deleteOrder);

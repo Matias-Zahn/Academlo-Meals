@@ -1,4 +1,4 @@
-# Nombre de tu Aplicación
+# Comidas Academlo
 
 Esta app permite la creación de usuarios, los cuales tendrán la oportunidad de realizar pedidos de comidas en distintos restaurantes. La idea de la app es que dichos usuarios puedan dejar una reseña o comentario con respecto a la comida y al restaurante.
 
